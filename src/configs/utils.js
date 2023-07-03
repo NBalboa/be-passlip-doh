@@ -10,6 +10,11 @@ const requestStatus = {
   COMPLETED: 4,
 };
 
+const requestType = {
+  PERSONAL: 1,
+  OFFICIAL: 2,
+};
+
 function getStatus(status) {
   let statusType = parseInt(status);
   let message = null;
@@ -31,8 +36,30 @@ function getStatus(status) {
   return { statusType, message };
 }
 
+function getRequestType(request_type) {
+  if (request_type.toLowerCase() === "personal") {
+    return requestType.PERSONAL;
+  } else if (request_type.toLowerCase() === "official") {
+    return requestType.OFFICIAL;
+  } else {
+    return null;
+  }
+}
+
+function toMySqlDateTime(datetime) {
+  const originalDate = new Date(datetime);
+  const mysqlDateTime = originalDate
+    .toISOString()
+    .slice(0, 19)
+    .replace("T", " ");
+
+  return mysqlDateTime;
+}
+
 module.exports = {
   currentDateTime: getCurrentDateTime,
   requestStatus: requestStatus,
   getStatus: getStatus,
+  toMySqlDateTime: toMySqlDateTime,
+  getRequestType: getRequestType,
 };

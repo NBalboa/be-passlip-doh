@@ -3,11 +3,7 @@ const {
   createPasslip,
   statusPasslip,
 } = require("../../configs/database");
-const {
-  currentDateTime,
-  requestStatus,
-  getStatus,
-} = require("../../configs/utils");
+const { getStatus, getRequestType } = require("../../configs/utils");
 
 CONTROLLER = {
   allPasslips: (req, res) => {
@@ -20,20 +16,38 @@ CONTROLLER = {
       });
   },
   addPasslip: (req, res) => {
-    const { first_name, last_name, time_out, description } = req.body;
-    createPasslip(
+    const {
       first_name,
       last_name,
-      currentDateTime,
-      requestStatus.PENDING,
-      description
-    )
-      .then((result) => {
-        res.json({ msg: "Request was created", succes: true });
-      })
-      .catch((err) => {
-        res.json({ msg: "fail", succes: false });
-      });
+      middle_name,
+      time_out,
+      request_type,
+      position,
+      location,
+    } = req.body;
+    const REQUEST_TYPE = getRequestType(request_type);
+    console.log(REQUEST_TYPE);
+    if (REQUEST_TYPE == null) {
+      res.json({ msg: "Request type is required", succes: false });
+      return;
+    } else {
+      createPasslip(
+        first_name,
+        last_name,
+        middle_name,
+        time_out,
+        REQUEST_TYPE,
+        position,
+        location
+      )
+        .then((result) => {
+          res.json({ msg: "Request was created", succes: true });
+        })
+        .catch((err) => {
+          console.log(err);
+          res.json({ msg: "fail", succes: false });
+        });
+    }
   },
   updatePasslip: (req, res) => {
     const { status, id } = req.params;
