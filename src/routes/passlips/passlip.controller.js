@@ -2,6 +2,7 @@ const {
   getAllPasslip,
   createPasslip,
   statusPasslip,
+  deletePasslip,
 } = require("../../configs/database");
 const { getStatus, getRequestType } = require("../../configs/utils");
 
@@ -9,10 +10,10 @@ CONTROLLER = {
   allPasslips: (req, res) => {
     getAllPasslip()
       .spread((result) => {
-        res.json({ data: result, succes: true });
+        res.json({ data: result, success: true });
       })
       .catch((err) => {
-        res.json({ data: "err", succes: false });
+        res.json({ data: "fail to get data", success: false });
       });
   },
   addPasslip: (req, res) => {
@@ -28,7 +29,7 @@ CONTROLLER = {
     const REQUEST_TYPE = getRequestType(request_type);
     console.log(REQUEST_TYPE);
     if (REQUEST_TYPE == null) {
-      res.json({ msg: "Request type is required", succes: false });
+      res.json({ msg: "Request type is required", success: false });
       return;
     } else {
       createPasslip(
@@ -41,11 +42,11 @@ CONTROLLER = {
         location
       )
         .then((result) => {
-          res.json({ msg: "Request was created", succes: true });
+          res.json({ msg: "Request was created", success: true });
         })
         .catch((err) => {
           console.log(err);
-          res.json({ msg: "fail", succes: false });
+          res.json({ msg: "fail", success: false });
         });
     }
   },
@@ -53,7 +54,7 @@ CONTROLLER = {
     const { status, id } = req.params;
     let passlipStatus = getStatus(status);
     if (passlipStatus == null) {
-      res.json({ msg: "Status type is require", succes: false });
+      res.json({ msg: "Status type is require", success: false });
       return;
     } else {
       statusPasslip(passlipStatus.statusType, id)
@@ -64,6 +65,16 @@ CONTROLLER = {
           res.json({ msg: "Failed to approve passlip", success: false });
         });
     }
+  },
+  deletedPasslip: (req, res) => {
+    const { id } = req.params;
+    deletePasslip(id)
+      .then((result) => {
+        res.json({ msg: "Passlip was deleted successfully", succes: true });
+      })
+      .catch((err) => {
+        res.json({ msg: "Fail to delete passlip", success: true });
+      });
   },
 };
 
