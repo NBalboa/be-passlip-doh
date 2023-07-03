@@ -33,10 +33,11 @@ function createPasslip(
   time_out,
   request_type,
   location,
-  position
+  position,
+  phone
 ) {
   return mysql.query(
-    "INSERT INTO passlips (first_name, last_name,middle_name ,time_out, request_type ,status, location, position, created_at, updated_at) VALUES(?,?,?,?,?,?,?,?,?,?)",
+    "INSERT INTO passlips (first_name, last_name,middle_name ,time_out, request_type ,status, location, position,phone_no, created_at, updated_at) VALUES(?,?,?,?,?,?,?,?,?,?,?)",
     [
       first_name,
       last_name,
@@ -46,6 +47,7 @@ function createPasslip(
       requestStatus.PENDING,
       location,
       position,
+      phone,
       currentDateTime,
       currentDateTime,
     ]

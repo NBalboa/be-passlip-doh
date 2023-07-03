@@ -24,9 +24,9 @@ CONTROLLER = {
       request_type,
       position,
       location,
+      phone_no,
     } = req.body;
     const REQUEST_TYPE = getRequestType(request_type);
-    console.log(REQUEST_TYPE);
     if (REQUEST_TYPE == null) {
       res.json({ msg: "Request type is required", succes: false });
       return;
@@ -38,7 +38,8 @@ CONTROLLER = {
         time_out,
         REQUEST_TYPE,
         position,
-        location
+        location,
+        phone_no
       )
         .then((result) => {
           res.json({ msg: "Request was created", succes: true });
