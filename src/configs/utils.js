@@ -48,10 +48,14 @@ function getRequestType(request_type) {
 
 function toMySqlDateTime(datetime) {
   const originalDate = new Date(datetime);
-  const mysqlDateTime = originalDate
-    .toISOString()
-    .slice(0, 19)
-    .replace("T", " ");
+  const year = originalDate.getFullYear();
+  const month = String(originalDate.getMonth() + 1).padStart(2, "0");
+  const day = String(originalDate.getDate()).padStart(2, "0");
+  const hour = String(originalDate.getHours()).padStart(2, "0");
+  const minute = String(originalDate.getMinutes()).padStart(2, "0");
+  const second = String(originalDate.getSeconds()).padStart(2, "0");
+
+  const mysqlDateTime = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
 
   return mysqlDateTime;
 }
