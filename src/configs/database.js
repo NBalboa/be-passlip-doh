@@ -1,5 +1,9 @@
 const { DB_HOST, DB_USER, DB_PASS, DATABASE } = require("./secrets.js");
-const { currentDateTime } = require("./utils.js");
+const {
+  currentDateTime,
+  requestStatus,
+  toMySqlDateTime,
+} = require("./utils.js");
 
 const mysql = require("mysql-promise")();
 
@@ -22,15 +26,26 @@ function connection() {
     });
 }
 
-function createPasslip(first_name, last_name, time_out, status, description) {
+function createPasslip(
+  first_name,
+  last_name,
+  middle_name,
+  time_out,
+  request_type,
+  location,
+  position
+) {
   return mysql.query(
-    "INSERT INTO passlips (first_name, last_name, time_out, status, description, created_at, updated_at) VALUES(?,?,?,?,?,?,?)",
+    "INSERT INTO passlips (first_name, last_name,middle_name ,time_out, request_type ,status, location, position, created_at, updated_at) VALUES(?,?,?,?,?,?,?,?,?,?)",
     [
       first_name,
       last_name,
-      currentDateTime,
-      status,
-      description,
+      middle_name,
+      toMySqlDateTime(time_out),
+      request_type,
+      requestStatus.PENDING,
+      location,
+      position,
       currentDateTime,
       currentDateTime,
     ]
