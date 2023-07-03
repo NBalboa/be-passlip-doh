@@ -55,7 +55,7 @@ function createPasslip(
 }
 
 function getAllPasslip() {
-  return mysql.query("SELECT * FROM passlips");
+  return mysql.query("SELECT * FROM passlips ORDER BY id DESC");
 }
 
 function statusPasslip(status, id) {
