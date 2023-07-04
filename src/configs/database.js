@@ -80,7 +80,7 @@ function createAccount(first_name, last_name, username, password, token) {
   );
 }
 
-function login(username) {
+function loginUser(username) {
   return mysql.query("SELECT * FROM users WHERE username = ?", [username]);
 }
 
@@ -90,5 +90,5 @@ module.exports = {
   getAllPasslip,
   statusPasslip,
   createAccount,
-  login,
+  loginUser,
 };

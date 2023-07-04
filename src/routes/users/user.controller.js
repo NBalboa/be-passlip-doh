@@ -1,5 +1,5 @@
 const { hashPassword, unHashPassword } = require("../../configs/utils.js");
-const { createAccount, login } = require("../../configs/database.js");
+const { createAccount, loginUser } = require("../../configs/database.js");
 const { ACCESS_TOKEN } = require("../../configs/secrets.js");
 const jwt = require("jsonwebtoken");
 
@@ -35,7 +35,7 @@ const CONTROLLER = {
     const { username, password } = req.body;
 
     try {
-      const get_user = await login(username);
+      const get_user = await loginUser(username);
       const user_details = get_user[0][0];
       const checkPassword = await unHashPassword(
         password,
