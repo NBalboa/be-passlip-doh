@@ -7,6 +7,6 @@ app.get("/", CONTROLLER.allPasslips);
 app.post("/add", CONTROLLER.addPasslip);
 app.put("/update/:status/:id", CONTROLLER.updatePasslip);
 app.delete("/delete/:id", CONTROLLER.deletedPasslip);
-app.get("/approved", CONTROLLER.approvedSlip);
+app.get("/all/:status", CONTROLLER.statusPasslips);
 
 module.exports = app;
