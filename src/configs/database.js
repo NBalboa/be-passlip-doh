@@ -84,11 +84,16 @@ function loginUser(username) {
   return mysql.query("SELECT * FROM users WHERE username = ?", [username]);
 }
 
+function deletePasslip(id) {
+  return mysql.query("DELETE FROM passlips WHERE id = ?", [id]);
+}
+
 module.exports = {
   connection,
   createPasslip,
   getAllPasslip,
   statusPasslip,
   createAccount,
+  deletePasslip,
   loginUser,
 };
