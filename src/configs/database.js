@@ -75,6 +75,10 @@ function deletePasslip(id) {
   return mysql.query("DELETE FROM passlips WHERE id = ?", [id]);
 }
 
+function getApprovedSlip() {
+  return mysql.query("SELECT * FROM passlips WHERE status = 2");
+}
+// USER
 function loginUser(username) {
   return mysql.query("SELECT * FROM users WHERE username = ?", [username]);
 }
@@ -101,4 +105,5 @@ module.exports = {
   deletePasslip,
   loginUser,
   createAccount,
+  getApprovedSlip,
 };
