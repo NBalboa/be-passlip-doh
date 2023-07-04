@@ -65,9 +65,14 @@ function statusPasslip(status, id) {
   );
 }
 
+function loginUser(username) {
+  return mysql.query("SELECT * FROM users WHERE username = ?", [username]);
+}
+
 module.exports = {
   connection,
   createPasslip,
   getAllPasslip,
   statusPasslip,
+  loginUser,
 };
