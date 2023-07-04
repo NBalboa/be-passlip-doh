@@ -65,9 +65,30 @@ function statusPasslip(status, id) {
   );
 }
 
+function createAccount(first_name, last_name, username, password, token) {
+  return mysql.query(
+    "INSERT INTO users(first_name, last_name, username, password, token, created_at, updated_at) VALUES (?,?,?,?,?,?,?)",
+    [
+      first_name,
+      last_name,
+      username,
+      password,
+      token,
+      currentDateTime,
+      currentDateTime,
+    ]
+  );
+}
+
+function login(username) {
+  return mysql.query("SELECT * FROM users WHERE username = ?", [username]);
+}
+
 module.exports = {
   connection,
   createPasslip,
   getAllPasslip,
   statusPasslip,
+  createAccount,
+  login,
 };
