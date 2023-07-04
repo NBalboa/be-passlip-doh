@@ -65,8 +65,8 @@ function statusPasslip(status, id) {
   );
 }
 
-function deletePasslip(id) {
-  return mysql.query("DELETE FROM passlips WHERE id = ?", [id]);
+function loginUser(username) {
+  return mysql.query("SELECT * FROM users WHERE username = ?", [username]);
 }
 
 module.exports = {
@@ -74,5 +74,5 @@ module.exports = {
   createPasslip,
   getAllPasslip,
   statusPasslip,
-  deletePasslip,
+  loginUser,
 };

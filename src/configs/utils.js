@@ -1,3 +1,5 @@
+const bcrypt = require("bcrypt");
+const { SALT_ROUNDS } = require("./secrets");
 const getCurrentDateTime = new Date()
   .toISOString()
   .slice(0, 19)
@@ -60,10 +62,36 @@ function toMySqlDateTime(datetime) {
   return mysqlDateTime;
 }
 
+function hashPassword(password) {
+  return new Promise((resolve, reject) => {
+    bcrypt.hash(password, SALT_ROUNDS, function (err, hash) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(hash);
+      }
+    });
+  });
+}
+
+function unHashPassword(password, hashPassword) {
+  return new Promise((resolve, reject) => {
+    bcrypt.compare(password, hashPassword, function (err, result) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+}
+
 module.exports = {
   currentDateTime: getCurrentDateTime,
   requestStatus: requestStatus,
   getStatus: getStatus,
   toMySqlDateTime: toMySqlDateTime,
+  hashPassword: hashPassword,
   getRequestType: getRequestType,
+  unHashPassword: unHashPassword,
 };
