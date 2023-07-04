@@ -59,6 +59,12 @@ function getAllPasslip() {
 }
 
 function statusPasslip(status, id) {
+  if (status === 4) {
+    return mysql.query(
+      "UPDATE passlips SET status = ?, time_in = ?, updated_at = ? WHERE id = ?",
+      [status, currentDateTime, currentDateTime, id]
+    );
+  }
   return mysql.query(
     "UPDATE passlips SET status = ?, updated_at = ? WHERE id = ?",
     [status, currentDateTime, id]
