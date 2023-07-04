@@ -3,7 +3,7 @@ const {
   createPasslip,
   statusPasslip,
   deletePasslip,
-  getApprovedSlip,
+  getAllSlipsByStatus,
 } = require("../../configs/database");
 const { getStatus, getRequestType } = require("../../configs/utils");
 
@@ -78,9 +78,17 @@ CONTROLLER = {
         res.json({ msg: "Fail to delete passlip", success: true });
       });
   },
-  approvedSlip: async (req, res) => {
+  statusPasslips: async (req, res) => {
+    const { status } = req.params;
+    const check = getStatus(status);
+
+    if (!check) {
+      res.json({ msg: "Status doesn't exist", succes: false });
+      return;
+    }
+
     try {
-      const result = await getApprovedSlip();
+      const result = await getAllSlipsByStatus(status);
       res.json({ result: result[0], success: true });
     } catch (e) {
       console.log(e);
