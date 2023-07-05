@@ -1,9 +1,7 @@
 const bcrypt = require("bcrypt");
 const { SALT_ROUNDS } = require("./secrets");
-const getCurrentDateTime = new Date()
-  .toISOString()
-  .slice(0, 19)
-  .replace("T", " ");
+const moment = require("moment");
+const getCurrentDateTime = moment().format("YYYY-MM-DD HH:mm:ss");
 
 const requestStatus = {
   PENDING: 1,

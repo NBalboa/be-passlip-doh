@@ -28,18 +28,17 @@ io.on("connection", (socket) => {
   socket.on("send_message", (data) => {
     getAllPasslip()
       .spread((result) => {
-        console.log(result);
         socket.broadcast.emit(result);
-        // res.json({ data: result, succes: true });
       })
-      .catch((err) => {
-        // res.json({ data: "er", succes: false });
-      });
-    // socket.broadcast.emit("receive_msg", data);
+      .catch((err) => {});
   });
 
   socket.on("send_request", (data) => {
     socket.broadcast.emit("receive_request", data);
+  });
+
+  socket.on("send_aprrove", (data) => {
+    socket.broadcast.emit("show_approve", data);
   });
 });
 
