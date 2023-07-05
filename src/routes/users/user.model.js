@@ -1,15 +1,16 @@
 const { Router } = require("express");
 const app = Router();
 const jwt = require("jsonwebtoken");
-const { login } = require("../../configs/database.js");
-const { unHashPassword } = require("../../configs/utils.js");
 const { ACCESS_TOKEN } = require("../../configs/secrets.js");
-const { register } = require("../../configs/validators.js");
+const {
+  registerValidation,
+  loginValidation,
+} = require("../../configs/validators.js");
 
 const { CONTROLLER } = require("./user.controller.js");
 
-app.post("/register", register, CONTROLLER.REGISTER);
-app.post("/login", CONTROLLER.LOGIN);
+app.post("/register", registerValidation, CONTROLLER.REGISTER);
+app.post("/login", loginValidation, CONTROLLER.LOGIN);
 
 // async function authenticatePassword(req, res, next) {
 //   const { username, password } = req.body;
