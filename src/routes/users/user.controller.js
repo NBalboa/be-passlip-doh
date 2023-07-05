@@ -8,6 +8,7 @@ const CONTROLLER = {
     const { first_name, last_name, username, password, confirm_pass } =
       req.body;
     let hashedPassword;
+
     if (password === confirm_pass) {
       hashedPassword = await hashPassword(password);
     }
