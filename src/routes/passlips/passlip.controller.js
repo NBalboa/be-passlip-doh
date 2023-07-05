@@ -39,8 +39,8 @@ CONTROLLER = {
         middle_name,
         time_out,
         REQUEST_TYPE,
-        position,
         location,
+        position,
         phone_no
       )
         .then((result) => {
