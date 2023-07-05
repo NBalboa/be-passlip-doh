@@ -36,6 +36,7 @@ function createPasslip(
   position,
   phone
 ) {
+  const dateAndTime = currentDateTime();
   return mysql.query(
     "INSERT INTO passlips (first_name, last_name,middle_name ,time_out, request_type ,status, location, position,phone_no, created_at, updated_at) VALUES(?,?,?,?,?,?,?,?,?,?,?)",
     [
@@ -48,8 +49,8 @@ function createPasslip(
       location,
       position,
       phone,
-      currentDateTime,
-      currentDateTime,
+      dateAndTime,
+      dateAndTime,
     ]
   );
 }
@@ -59,15 +60,16 @@ function getAllPasslip() {
 }
 
 function statusPasslip(status, id) {
+  const dateAndTime = currentDateTime();
   if (status === 4) {
     return mysql.query(
       "UPDATE passlips SET status = ?, time_in = ?, updated_at = ? WHERE id = ?",
-      [status, currentDateTime, currentDateTime, id]
+      [status, dateAndTime, dateAndTime, id]
     );
   }
   return mysql.query(
     "UPDATE passlips SET status = ?, updated_at = ? WHERE id = ?",
-    [status, currentDateTime, id]
+    [status, dateAndTime, id]
   );
 }
 
@@ -84,17 +86,10 @@ function loginUser(username) {
 }
 
 function createAccount(first_name, last_name, username, password, token) {
+  const dateAndTime = currentDateTime();
   return mysql.query(
     "INSERT INTO users (first_name, last_name, username, password, token, created_at, updated_at) VALUES (?,?,?,?,?,?,?)",
-    [
-      first_name,
-      last_name,
-      username,
-      password,
-      token,
-      currentDateTime,
-      currentDateTime,
-    ]
+    [first_name, last_name, username, password, token, dateAndTime, dateAndTime]
   );
 }
 module.exports = {
