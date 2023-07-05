@@ -27,6 +27,22 @@ const register = async (req, res, next) => {
   });
 };
 
+const login = async (req, res, next) => {
+  const validationRules = {
+    username: "required|string",
+    password: "required|string",
+  };
+
+  await validator(req.body, validationRules, {}, (err, status) => {
+    if (!status) {
+      res.json({ result: err, success: false });
+    } else {
+      next();
+    }
+  });
+};
+
 module.exports = {
-  register,
+  registerValidation: register,
+  loginValidation: login,
 };
