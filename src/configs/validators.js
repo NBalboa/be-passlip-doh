@@ -42,7 +42,28 @@ const login = async (req, res, next) => {
   });
 };
 
+const passlip = async (req, res, next) => {
+  const validationRules = {
+    first_name: "required|string",
+    last_name: "required|string",
+    time_out: "required|string",
+    request_type: "required|string",
+    position: "required|string",
+    location: "required|string",
+    phone_no: "required|string",
+  };
+
+  await validator(req.body, validationRules, {}, (err, status) => {
+    if (!status) {
+      res.json({ result: err, success: false });
+    } else {
+      next();
+    }
+  });
+};
+
 module.exports = {
   registerValidation: register,
   loginValidation: login,
+  passlipValidation: passlip,
 };
