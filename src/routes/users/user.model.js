@@ -4,10 +4,11 @@ const jwt = require("jsonwebtoken");
 const { login } = require("../../configs/database.js");
 const { unHashPassword } = require("../../configs/utils.js");
 const { ACCESS_TOKEN } = require("../../configs/secrets.js");
+const { register } = require("../../configs/validators.js");
 
 const { CONTROLLER } = require("./user.controller.js");
 
-app.post("/register", CONTROLLER.REGISTER);
+app.post("/register", register, CONTROLLER.REGISTER);
 app.post("/login", CONTROLLER.LOGIN);
 
 // async function authenticatePassword(req, res, next) {
